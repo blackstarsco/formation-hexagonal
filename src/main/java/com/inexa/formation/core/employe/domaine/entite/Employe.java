@@ -1,6 +1,7 @@
 package com.inexa.formation.core.employe.domaine.entite;
 
 import com.inexa.formation.commun.objetvaleur.Adresse;
+import com.inexa.formation.core.employe.domaine.exception.EmployeException;
 import com.inexa.formation.core.employe.domaine.objetvaleur.Civilite;
 import com.inexa.formation.core.employe.domaine.objetvaleur.Disponibilite;
 
@@ -78,4 +79,20 @@ public class Employe {
     public void setDisponibilite(Disponibilite disponibilite) {
         this.disponibilite = disponibilite;
     }
+
+    public boolean estRetraite(){
+        return this.disponibilite == Disponibilite.EN_RETRAITE;
+    }
+
+    public  boolean estSuspendu(){
+        return  this.disponibilite == Disponibilite.EN_SUSPENSION;
+    }
+    public void changeDisponibilite(Disponibilite disponibilite){
+
+        if (this.estRetraite() || this.estSuspendu()){
+            throw new EmployeException("Employer en retraite ou pas disponible");
+        }
+        this.disponibilite = disponibilite;
+    }
+
 }
